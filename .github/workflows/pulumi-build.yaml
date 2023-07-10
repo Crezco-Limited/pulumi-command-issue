@@ -1,0 +1,42 @@
+name: Pulumi
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  PulumiPreview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Pulumi Preview
+        uses: pulumi/actions@v4
+        with:
+          command: preview
+          stack-name: PulumiCommand/dev
+          work-dir: ./
+        env:
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_PAT }}
+          ARM_CLIENT_ID: ${{ secrets.SP_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.SP_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_DEVELOPMENT_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID}}
+
+  PulumiDeploy:
+    needs: PulumiPreview
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pulumi Deploy
+        uses: pulumi/actions@v4
+        with:
+          command: up
+          stack-name: PulumiCommand/dev
+          work-dir: ./
+        env:
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_PAT }}
+          ARM_CLIENT_ID: ${{ secrets.SP_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.SP_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_DEVELOPMENT_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID}}
