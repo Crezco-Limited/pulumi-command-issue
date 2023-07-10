@@ -12,7 +12,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: '{"clientId":"${{ secrets.SP_CLIENT_ID }}","clientSecret":"${{ secrets.SP_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_DEVELOPMENT_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
         
       - name: Pulumi Preview
         uses: pulumi/actions@v4
@@ -36,7 +36,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: '{"clientId":"${{ secrets.SP_CLIENT_ID }}","clientSecret":"${{ secrets.SP_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_DEVELOPMENT_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
       
       - name: Pulumi Deploy
         uses: pulumi/actions@v4
