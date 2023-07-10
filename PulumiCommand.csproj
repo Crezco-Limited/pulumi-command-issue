@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Pulumi" Version="3.55.1" />
+    <PackageReference Include="Pulumi.AzureNative" Version="1.93.0" />
     <PackageReference Include="Pulumi.Command" Version="0.5.2" />
   </ItemGroup>
 
